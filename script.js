@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const birdImg = new Image();
-birdImg.src = 'bird.png';
+birdImg.src = 'flying_robot.png';
 const pipeImg = new Image();
 pipeImg.src = 'pipe.png';
 
