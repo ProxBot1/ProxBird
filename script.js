@@ -7,16 +7,16 @@ canvas.height = window.innerHeight;
 const bird = {
     x: 50,
     y: canvas.height / 2,
-    width: 25,
-    height: 25,
+    width: 30,
+    height: 30,
     velocity: 0,
     gravity: 0.5,
     jump: -10,
 };
 
 const pipes = [];
-const pipeWidth = 25;
-let pipeGap = 200;
+const pipeWidth = 30;
+let pipeGap = 250;
 let pipeSpeed = 5;
 let score = 0;
 let gameStarted = false;
