@@ -4,23 +4,18 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const birdImg = new Image();
-birdImg.src = 'flying_robot.png';
-const pipeImg = new Image();
-pipeImg.src = 'pipe.png';
-
 const bird = {
     x: 50,
     y: canvas.height / 2,
-    width: 40,
-    height: 30,
+    width: 25,
+    height: 25,
     velocity: 0,
     gravity: 0.5,
     jump: -10,
 };
 
 const pipes = [];
-const pipeWidth = 50;
+const pipeWidth = 25;
 let pipeGap = 200;
 let pipeSpeed = 5;
 let score = 0;
@@ -28,13 +23,39 @@ let gameStarted = false;
 let gameOver = false;
 
 function drawBird() {
-    ctx.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+    const robotPixels = [
+        [0, 1, 1, 1, 0],
+        [1, 0, 1, 0, 1],
+        [1, 1, 1, 1, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+    ];
+
+    for (let y = 0; y < robotPixels.length; y++) {
+        for (let x = 0; x < robotPixels[y].length; x++) {
+            if (robotPixels[y][x] === 1) {
+                ctx.fillStyle = 'blue';
+                ctx.fillRect(bird.x + x * 5, bird.y + y * 5, 5, 5);
+            }
+        }
+    }
 }
 
 function drawPipes() {
     for (let pipe of pipes) {
-        ctx.drawImage(pipeImg, pipe.x, 0, pipeWidth, pipe.topHeight);
-        ctx.drawImage(pipeImg, pipe.x, pipe.topHeight + pipeGap, pipeWidth, canvas.height - pipe.topHeight - pipeGap);
+        ctx.fillStyle = 'green';
+        for (let y = 0; y < 10; y++) {
+            for (let x = 0; x < 5; x++){
+                ctx.fillRect(pipe.x + x * 5, y * 5, 5, 5);
+            }
+        }
+
+        ctx.fillStyle = 'green';
+        for (let y = 0; y < canvas.height / 5 - (pipe.topHeight / 5 + pipeGap / 5); y++) {
+             for (let x = 0; x < 5; x++){
+                ctx.fillRect(pipe.x + x * 5, pipe.topHeight + pipeGap + y * 5, 5, 5);
+            }
+        }
     }
 }
 
