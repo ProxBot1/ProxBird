@@ -75,7 +75,6 @@ function updateBird() {
 }
 
 function updatePipes() {
-    function updatePipes() {
     if (gameStarted && !gameOver) {
         for (let i = pipes.length - 1; i >= 0; i--) {
             pipes[i].x -= pipeSpeed;
