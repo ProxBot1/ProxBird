@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -79,12 +80,10 @@ function updatePipes() {
         for (let i = pipes.length - 1; i >= 0; i--) {
             pipes[i].x -= pipeSpeed;
 
-            // Simple collision check
-          if (bird.x < pipes[i].x + pipeWidth && bird.x + bird.width > pipes[i].x && bird.y < pipes[i].topHeight || bird.y + bird.height > pipes[i].topHeight + pipeGap) {  
-                bird.x + bird.width > pipes[i].x &&
-                bird.y < pipes[i].topHeight ||
-                bird.y + bird.height > pipes[i].topHeight + pipeGap) {
-                gameOver = true;
+            if (bird.x + bird.width > pipes[i].x && bird.x < pipes[i].x + pipeWidth) {
+                if (bird.y < pipes[i].topHeight || bird.y + bird.height > pipes[i].topHeight + pipeGap) {
+                    gameOver = true;
+                }
             }
 
             if (pipes[i].x + pipeWidth < 0) {
@@ -103,7 +102,6 @@ function updatePipes() {
         }
     }
 }
-
 
 function generatePipes() {
     const topHeight = Math.random() * (canvas.height - pipeGap - 100) + 50;
