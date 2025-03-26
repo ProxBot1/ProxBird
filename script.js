@@ -80,7 +80,7 @@ function updatePipes() {
             pipes[i].x -= pipeSpeed;
 
             if (bird.x + bird.width > pipes[i].x && bird.x < pipes[i].x + pipeWidth) {
-                if (bird.y < pipes[i].topHeight || bird.y + bird.height > pipes[i].topHeight + pipeGap) {
+                if (bird.y < pipes[i].topHeight || bird.y + bird.height - 5 > pipes[i].topHeight + pipeGap) {
                     gameOver = true;
                 }
             }
