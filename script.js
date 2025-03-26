@@ -80,7 +80,7 @@ function updatePipes() {
             pipes[i].x -= pipeSpeed;
 
             // Simple collision check
-            if (bird.x < pipes[i].x + pipeWidth &&
+          if (bird.x < pipes[i].x + pipeWidth && bird.x + bird.width > pipes[i].x && bird.y < pipes[i].topHeight || bird.y + bird.height > pipes[i].topHeight + pipeGap) {  
                 bird.x + bird.width > pipes[i].x &&
                 bird.y < pipes[i].topHeight ||
                 bird.y + bird.height > pipes[i].topHeight + pipeGap) {
