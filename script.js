@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -24,18 +23,20 @@ let gameStarted = false;
 let gameOver = false;
 
 function drawBird() {
-    const robotPixels = [
+    const birdPixels = [
+        [0, 0, 1, 0, 0],
         [0, 1, 1, 1, 0],
-        [1, 0, 1, 0, 1],
-        [1, 1, 1, 1, 1],
-        [0, 1, 0, 1, 0],
+        [1, 1, 2, 1, 1],
+        [0, 1, 1, 1, 0],
         [0, 0, 1, 0, 0],
     ];
 
-    for (let y = 0; y < robotPixels.length; y++) {
-        for (let x = 0; x < robotPixels[y].length; x++) {
-            if (robotPixels[y][x] === 1) {
-                ctx.fillStyle = 'grey';
+    const grayShades = ['#ddd', '#aaa', '#777']; // Light, medium, dark gray
+
+    for (let y = 0; y < birdPixels.length; y++) {
+        for (let x = 0; x < birdPixels[y].length; x++) {
+            if (birdPixels[y][x] !== 0) {
+                ctx.fillStyle = grayShades[birdPixels[y][x] - 1]; // Use gray shade
                 ctx.fillRect(bird.x + x * 5, bird.y + y * 5, 5, 5);
             }
         }
@@ -47,16 +48,6 @@ function drawPipes() {
         ctx.fillStyle = 'green';
         ctx.fillRect(pipe.x, 0, pipeWidth, pipe.topHeight);
         ctx.fillRect(pipe.x, pipe.topHeight + pipeGap, pipeWidth, canvas.height - pipe.topHeight - pipeGap);
-    }
-}   
-
-
-        ctx.fillStyle = 'green';
-        for (let y = 0; y < canvas.height / 5 - (pipe.topHeight / 5 + pipeGap / 5); y++) {
-             for (let x = 0; x < 5; x++){
-                ctx.fillRect(pipe.x + x * 5, pipe.topHeight + pipeGap + y * 5, 5, 5);
-            }
-        }
     }
 }
 
@@ -80,6 +71,7 @@ function updatePipes() {
         for (let i = pipes.length - 1; i >= 0; i--) {
             pipes[i].x -= pipeSpeed;
 
+            // Adjusted collision check
             if (bird.x + bird.width - 10 > pipes[i].x && bird.x + 10 < pipes[i].x + pipeWidth) {
                 if (bird.y + 10 < pipes[i].topHeight || bird.y + bird.height - 10 > pipes[i].topHeight + pipeGap) {
                     gameOver = true;
