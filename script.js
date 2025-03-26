@@ -79,10 +79,12 @@ function updatePipes() {
         for (let i = pipes.length - 1; i >= 0; i--) {
             pipes[i].x -= pipeSpeed;
 
-            if (bird.x + bird.width > pipes[i].x && bird.x < pipes[i].x + pipeWidth) {
-                if (bird.y < pipes[i].topHeight || bird.y + bird.height - 5 > pipes[i].topHeight + pipeGap) {
-                    gameOver = true;
-                }
+            // Simple collision check
+            if (bird.x < pipes[i].x + pipeWidth &&
+                bird.x + bird.width > pipes[i].x &&
+                bird.y < pipes[i].topHeight ||
+                bird.y + bird.height > pipes[i].topHeight + pipeGap) {
+                gameOver = true;
             }
 
             if (pipes[i].x + pipeWidth < 0) {
@@ -101,6 +103,7 @@ function updatePipes() {
         }
     }
 }
+
 
 function generatePipes() {
     const topHeight = Math.random() * (canvas.height - pipeGap - 100) + 50;
