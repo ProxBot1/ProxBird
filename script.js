@@ -35,7 +35,7 @@ function drawBird() {
     for (let y = 0; y < robotPixels.length; y++) {
         for (let x = 0; x < robotPixels[y].length; x++) {
             if (robotPixels[y][x] === 1) {
-                ctx.fillStyle = 'blue';
+                ctx.fillStyle = 'grey';
                 ctx.fillRect(bird.x + x * 5, bird.y + y * 5, 5, 5);
             }
         }
@@ -45,11 +45,11 @@ function drawBird() {
 function drawPipes() {
     for (let pipe of pipes) {
         ctx.fillStyle = 'green';
-        for (let y = 0; y < 10; y++) {
-            for (let x = 0; x < 5; x++){
-                ctx.fillRect(pipe.x + x * 5, y * 5, 5, 5);
-            }
-        }
+        ctx.fillRect(pipe.x, 0, pipeWidth, pipe.topHeight);
+        ctx.fillRect(pipe.x, pipe.topHeight + pipeGap, pipeWidth, canvas.height - pipe.topHeight - pipeGap);
+    }
+}   
+
 
         ctx.fillStyle = 'green';
         for (let y = 0; y < canvas.height / 5 - (pipe.topHeight / 5 + pipeGap / 5); y++) {
