@@ -75,14 +75,25 @@ function updateBird() {
 }
 
 function updatePipes() {
+   function updatePipes() {
     if (gameStarted && !gameOver) {
         for (let i = pipes.length - 1; i >= 0; i--) {
             pipes[i].x -= pipeSpeed;
 
-            if (bird.x + bird.width > pipes[i].x && bird.x < pipes[i].x + pipeWidth) {
-                if (bird.y < pipes[i].topHeight || bird.y + bird.height - 5 > pipes[i].topHeight + pipeGap) {
-                    gameOver = true;
-                }
+            // Even more complex collision check
+            const birdLeft = bird.x + 10;
+            const birdRight = bird.x + bird.width - 10;
+            const birdTop = bird.y + 10;
+            const birdBottom = bird.y + bird.height - 10;
+
+            const pipeLeft = pipes[i].x;
+            const pipeRight = pipes[i].x + pipeWidth;
+            const pipeTop = pipes[i].topHeight;
+            const pipeBottom = pipes[i].topHeight + pipeGap;
+
+            if (birdRight > pipeLeft && birdLeft < pipeRight &&
+                (birdBottom > pipeTop && birdTop < pipeBottom)) {
+                gameOver = true;
             }
 
             if (pipes[i].x + pipeWidth < 0) {
